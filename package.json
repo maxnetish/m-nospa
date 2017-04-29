@@ -1,0 +1,60 @@
+{
+  "name": "m-nospa",
+  "version": "0.0.1",
+  "description": "nospa app",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxnetish/m-nospa.git"
+  },
+  "keywords": [
+    "nospa"
+  ],
+  "author": "maxnetish",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maxnetish/m-nospa/issues"
+  },
+  "homepage": "https://github.com/maxnetish/m-nospa#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "css-loader": "^0.28.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "grunt": "^1.0.1",
+    "grunt-babel": "^6.0.0",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-webpack": "^2.0.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "less-plugin-autoprefix": "^1.5.1",
+    "less-plugin-npm-import": "^2.1.0",
+    "load-grunt-tasks": "^3.5.2",
+    "style-loader": "^0.16.1",
+    "webpack": "^2.4.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "classnames": "^2.2.5",
+    "cookie-parser": "^1.4.3",
+    "core-decorators": "^0.17.0",
+    "core-js": "^2.4.1",
+    "express": "^4.15.2",
+    "lodash": "^4.17.4",
+    "morgan": "^1.8.1",
+    "normalize.less": "^1.0.0",
+    "poet": "git+https://git@github.com/maxnetish/poet.git",
+    "response-time": "^2.3.2",
+    "serve-favicon": "^2.4.2",
+    "serve-static": "^1.12.2",
+    "whatwg-fetch": "^2.0.3"
+  }
+}

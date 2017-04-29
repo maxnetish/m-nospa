@@ -1,0 +1,13 @@
+/.idea
+/bower_components
+/node_modules
+/config/*.json
+/out-of-use/config/*.json
+/projectFilesBackup
+/build
+/public
+/upload
+/dist
+.project
+.babel-cache
+/_posts

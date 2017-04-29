@@ -1,0 +1,21 @@
+doctype html
+html
+    head
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(charset='UTF-8')
+        title= "m-nospa"
+        link(rel="stylesheet", href='/assets/main.css')
+        link(href='//fonts.googleapis.com/css?family=Fira+Sans&subset=latin,cyrillic', rel='stylesheet')
+    body
+        .main-wrapper
+            include header-block
+            .clear.body-row.page-content
+                .body-row-content.flex-ct
+                    section.main-content
+                        block content
+                    include sidebar-block
+            include footer-block
+        script(src='assets/main.bundle.js')
+
+
+
