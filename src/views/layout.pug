@@ -1,11 +1,12 @@
 doctype html
-html
+html(lang='ru')
     head
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(charset='UTF-8')
-        title= "m-nospa"
-        link(rel="stylesheet", href='/assets/main.css')
-        link(href='//fonts.googleapis.com/css?family=Fira+Sans&subset=latin,cyrillic', rel='stylesheet')
+        title= "Maksim Gordeev"
+        link(rel="stylesheet", href='/assets/normalize.css')
+        link(rel="stylesheet", href='/assets/styles.css')
+        link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Fira+Sans&subset=latin,cyrillic')
     body
         .main-wrapper
             include header-block
@@ -15,7 +16,8 @@ html
                         block content
                     include sidebar-block
             include footer-block
-        script(src='assets/main.bundle.js')
+        script(src="/assets/main.bundle.js")
+        script(src="https://use.fontawesome.com/b0902e84c6.js")
 
 
 

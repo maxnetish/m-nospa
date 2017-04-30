@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    h3.articles-group-title #{'Публикации с меткой '}
+        q #{tag}
+    each post in posts
+        include post-preview

@@ -1,12 +1,21 @@
-div.post
+article.post
     h1
         a(href=post.url)
             = post.title
-    span.date #{post.date.getMonth()+1}.#{post.date.getDate()}.#{post.date.getFullYear()}
-    div.post.content
-        != post.preview
+    span.post-date-ct
+        i.fa.fa-calendar.fa-fw(aria-hidden="true")
+        time.date(datetime=post.date.toISOString()) #{post.date.toLocaleDateString()}
+    div.tags
+        span.post-tag-ct
+            a(href=categoryURL(post.category))
+                i.fa.fa-folder-o.fa-fw(aria-hidden="true")
+                span.post-tag-label #{post.category}
     div.tags
         each tag in post.tags
-            a(href=tagUrl(tag))
-                span.label.label-info #{tag}
+            span.post-tag-ct
+                a(href=tagUrl(tag))
+                    i.fa.fa-tag.fa-fw(aria-hidden="true")
+                    span.post-tag-label #{tag}
+    div.post.content
+        != post.preview
 

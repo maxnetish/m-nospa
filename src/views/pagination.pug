@@ -1,13 +1,29 @@
 - var pageCount = getPageCount();
+- var pageInt = parseInt(page, 10);
+- var pageInd = 1;
 if pageCount > 1
-    ul.pagination
-        - var i = 1;
-        while ( i <= pageCount )
-            if page == i
-                li(class='active')
-                    a(href=pageURL(i)) #{i}
-            else
+    .pagination-block
+        ul.unstyled(role="navigation")
+            if pageInt > 1
                 li
-                    a(href=pageURL(i)) #{i}
-            - i++;
+                    a(href=pageURL(1), title="Первая страница")
+                        i.fa.fa-angle-double-left.fa-fw
+                li
+                    a(href=pageURL(pageInt-1), title="Предыдущая страница")
+                        i.fa.fa-angle-left.fa-fw
+            while ( pageInd <= pageCount )
+                if pageInd>page-3 && pageInd<page+3
+                    if pageInt === pageInd
+                        li(class="active") #{pageInd}
+                    else
+                        li
+                            a(href=pageURL(pageInd)) #{pageInd}
+                - pageInd++;
+            if pageInt < pageCount
+                li
+                    a(href=pageURL(pageInt+1), title="Следующая страница")
+                        i.fa.fa-angle-right.fa-fw
+                li
+                    a(href=pageURL(pageCount), title="Последняя страница")
+                        i.fa.fa-angle-double-right.fa-fw
 

@@ -3,7 +3,8 @@ module.exports = function (grunt) {
     var buildDir = 'build';
     var nodeModulesDir = 'node_modules';
     var srcDir = 'src';
-    var mainAppFile = 'server.js';
+    var outputLess = 'assets/styles.css';
+    var outputNormalize = 'assets/normalize.css';
     var webpack = require('webpack');
     var webpackCommonOptions = require('./webpack.config.js');
     var path = require('path');
@@ -18,17 +19,6 @@ module.exports = function (grunt) {
         ],
 
         copy: {
-            // favicon: {
-            //     files: [
-            //         {
-            //             expand: true,
-            //             filter: 'isFile',
-            //             flatten: true,
-            //             src: srcDir + '/*.ico',
-            //             dest: path.join(buildDir, 'pub')
-            //         }
-            //     ]
-            // },
             'pug views': {
                 files: [
                     {
@@ -39,6 +29,23 @@ module.exports = function (grunt) {
                         dest: buildDir + '/views'
                     }
                 ]
+            },
+            'normalize css': {
+                files: [{
+                    src: path.join(nodeModulesDir, 'normalize.css/normalize.css'),
+                    dest: path.join(buildDir, outputNormalize)
+                }]
+            },
+            'images': {
+                files: [
+                    {
+                        expand: true,
+                        filter: 'isFile',
+                        cwd: srcDir,
+                        src: ['**/*.jpg', '**/*.png'],
+                        dest: buildDir + '/assets'
+                    }
+                ]
             }
         },
 
@@ -46,17 +53,16 @@ module.exports = function (grunt) {
             'back': {
                 options: {
                     sourceMap: 'inline',
-                    presets:
+                    presets: [
                         [
-                            [
-                                'env',
-                                {
-                                    'targets': {
-                                        'node': 'current'
-                                    }
+                            'env',
+                            {
+                                'targets': {
+                                    'node': 'current'
                                 }
-                            ]
+                            }
                         ]
+                    ]
                 },
                 files: [
                     {
@@ -70,6 +76,40 @@ module.exports = function (grunt) {
             }
         },
 
+        less: {
+            dev: {
+                files: [{
+                    src: srcDir + '/front/**/*.less',
+                    dest: path.join(buildDir, outputLess)
+                }],
+                options: {
+                    sourceMap: true,
+                    outputSourceFiles: true,
+                    plugins: [
+                        new (require('less-plugin-npm-import')),
+                        new (require('less-plugin-autoprefix'))({
+                            browsers: ['last 2 versions']
+                        })
+                    ]
+                }
+            },
+            prod: {
+                files: [{
+                    src: srcDir + '/front/**/*.less',
+                    dest: path.join(buildDir, outputLess)
+                }],
+                options: {
+                    sourceMap: false,
+                    plugins: [
+                        new (require('less-plugin-npm-import')),
+                        new (require('less-plugin-autoprefix'))({
+                            browsers: ['last 2 versions']
+                        })
+                    ]
+                }
+            }
+        },
+
         webpack: {
             options: webpackCommonOptions,
             front: {
@@ -78,5 +118,5 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', ['clean', 'copy', 'babel:back', 'webpack:front']);
+    grunt.registerTask('default', ['clean', 'copy', 'babel:back', 'less:dev', 'webpack:front']);
 };

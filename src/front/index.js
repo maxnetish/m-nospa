@@ -1,5 +1,4 @@
-import './index.less';
-
 import './greeting';
+// import './github-profile';
 
 console.info('Script runs');

@@ -11,18 +11,6 @@ const path = require('path'),
 
 const app = express();
 
-const poet = Poet(app, {
-    postsPerPage: 3,
-    posts: '../../_posts',
-    metaFormat: 'json',
-    routes: {
-        '/:post': 'post',
-        '/:page': 'page',
-        '/tag/:tag': 'tag',
-        '/cat/:category': 'category'
-    }
-});
-
 // to properly work behind nginx
 app.set("trust proxy", true);
 // app.use(favicon(path.join(__dirname, 'pub/favicon.ico')));
@@ -32,6 +20,19 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.set('view engine', 'pug');
 app.set('views', '../views');
+
+const poet = Poet(app, {
+    postsPerPage: 3,
+    posts: '../../_posts',
+    metaFormat: 'json',
+    routes: {
+        '/post/:post': 'post',
+        '/:page': 'page',
+        '/tag/:tag': 'tag',
+        '/cat/:category': 'category'
+    },
+    readMoreLink: post => `<p class="poet-read-more"><a href="${post.url}" title="Read more of ${post.title}">Читать всё</a></p>`
+});
 
 /**
  * assets will be in build/assets, virtual path will be '/assets/bla-bla.js'
@@ -47,7 +48,9 @@ app.get(['/'], (req, res) => {
 
     let pp = poet;
 
-    res.render('index');
+    res.redirect('/1');
+
+    // res.render('index');
 });
 
 /**

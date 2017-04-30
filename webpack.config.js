@@ -1,13 +1,5 @@
 const path = require('path');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const extractLess = new ExtractTextPlugin({
-    filename: '[name].css'/*,
-    disable: process.env.NODE_ENV === 'development'
-    */
-});
-
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: './front/index.js',
@@ -36,30 +28,7 @@ module.exports = {
                         ]
                     }
                 }
-            },
-            {
-                test: /\.less$/,
-                use: extractLess.extract({
-                    use: [
-                        {
-                            loader: "css-loader"
-                        },
-                        {
-                            loader: "less-loader",
-                            options: {
-                                paths: [
-                                    path.resolve(__dirname, "node_modules")
-                                ]
-                            }
-                        }
-                    ],
-                    // use style-loader in development
-                    fallback: "style-loader"
-                })
             }
         ]
-    },
-    plugins: [
-        extractLess
-    ]
+    }
 };

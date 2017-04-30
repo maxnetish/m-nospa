@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    article.post
+        h1 #{post.title}
+        span.post-date-ct
+            i.fa.fa-calendar.fa-fw(aria-hidden="true")
+            time.date(datetime=post.date.toISOString()) #{post.date.toLocaleDateString()}
+        div.tags
+            span.post-tag-ct
+                a(href=categoryURL(post.category))
+                    i.fa.fa-folder-o.fa-fw(aria-hidden="true")
+                    span.post-tag-label #{post.category}
+        div.tags
+            each tag in post.tags
+                span.post-tag-ct
+                    a(href=tagUrl(tag))
+                        i.fa.fa-tag.fa-fw(aria-hidden="true")
+                        span.post-tag-label #{tag}
+        div.post.content
+            != post.content
