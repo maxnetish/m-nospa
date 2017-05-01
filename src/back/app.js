@@ -7,13 +7,15 @@ const path = require('path'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     serveStatic = require('serve-static'),
-    Poet = require('poet');
+    Poet = require('poet'),
+    emojiFavicon = require('emoji-favicon')
+;
 
 const app = express();
 
 // to properly work behind nginx
 app.set("trust proxy", true);
-// app.use(favicon(path.join(__dirname, 'pub/favicon.ico')));
+app.use(emojiFavicon('large_orange_diamond'));
 app.use(responseTime());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -22,7 +24,7 @@ app.set('view engine', 'pug');
 app.set('views', '../views');
 
 const poet = Poet(app, {
-    postsPerPage: 3,
+    postsPerPage: 5,
     posts: '../../_posts',
     metaFormat: 'json',
     routes: {
@@ -56,9 +58,8 @@ app.get(['/'], (req, res) => {
 /**
  * Setup poet
  */
-poet.init().then(() => {
-    console.info('Poet up');
-});
+poet.init()
+    .then(() => console.info('Poet up'), err => console.warn(err));
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

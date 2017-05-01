@@ -48,6 +48,7 @@
     "cookie-parser": "^1.4.3",
     "core-decorators": "^0.17.0",
     "core-js": "^2.4.1",
+    "emoji-favicon": "^0.3.0",
     "eventemitter3": "^2.0.3",
     "express": "^4.15.2",
     "lodash": "^4.17.4",
