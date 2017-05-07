@@ -7,8 +7,9 @@ const path = require('path'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     serveStatic = require('serve-static'),
-    Poet = require('poet'),
-    emojiFavicon = require('emoji-favicon')
+    emojiFavicon = require('emoji-favicon'),
+    requestLanguage = require('express-request-language'),
+    poetCustoms = require('./poet-customs')
 ;
 
 const app = express();
@@ -20,21 +21,14 @@ app.use(responseTime());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(requestLanguage({
+    // supported langs
+    languages: ['en', 'ru', 'en-GB'],
+    // url query param
+    queryName: 'locale'
+}));
 app.set('view engine', 'pug');
 app.set('views', '../views');
-
-const poet = Poet(app, {
-    postsPerPage: 5,
-    posts: '../../_posts',
-    metaFormat: 'json',
-    routes: {
-        '/post/:post': 'post',
-        '/:page': 'page',
-        '/tag/:tag': 'tag',
-        '/cat/:category': 'category'
-    },
-    readMoreLink: post => `<p class="poet-read-more"><a href="${post.url}" title="Read more of ${post.title}">Читать всё</a></p>`
-});
 
 /**
  * assets will be in build/assets, virtual path will be '/assets/bla-bla.js'
@@ -44,22 +38,16 @@ app.use('/assets', serveStatic('../assets', {
 }));
 
 /**
+ * Setup poet router
+ */
+poetCustoms.setupPoet(app);
+
+/**
  * Main entry
  */
 app.get(['/'], (req, res) => {
-
-    let pp = poet;
-
-    res.redirect('/1');
-
-    // res.render('index');
+    res.redirect('/posts/1');
 });
-
-/**
- * Setup poet
- */
-poet.init()
-    .then(() => console.info('Poet up'), err => console.warn(err));
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
